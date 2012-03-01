@@ -3,7 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+	<groupId>com.github.kingamajick.admp</groupId>
+	<version>0.0.1-SNAPSHOT</version>
 	<artifactId>android-drawable-maven-m2e-connector</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>Android Drawable Maven Plugin m2e Configurator</name>
@@ -11,7 +12,7 @@
 	<properties>
 		<tycho-version>0.13.0</tycho-version>
 	</properties>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -69,6 +70,4 @@
 			<url>http://download.eclipse.org/releases/indigo/</url>
 		</repository>
 	</repositories>
-	<groupId>com.github.kingamajick.admp</groupId>
-	<version>0.0.1-SNAPSHOT</version>
 </project>
