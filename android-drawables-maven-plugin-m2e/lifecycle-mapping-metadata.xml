@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lifecycleMappingMetadata>
+	<pluginExecutions>
+		<pluginExecution>
+			<pluginExecutionFilter>
+				<groupId>com.github.kingamajick.admp</groupId>
+				<artifactId>android-drawables-maven-plugin</artifactId>
+				<versionRange>[0.0.1-SNAPSHOT,)</versionRange>
+				<goals>
+					<goal>rasterize</goal>
+					<goal>static-resources</goal>
+					<goal>unpack</goal>
+				</goals>
+			</pluginExecutionFilter>
+			<action>
+				<configurator>
+					<id>com.github.kingamajick.admp.eclipse.projectConfigurator</id>
+				</configurator>
+			</action>
+		</pluginExecution>
+	</pluginExecutions>
+</lifecycleMappingMetadata>

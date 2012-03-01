@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: m2e configurator for the android-drawable-maven-plugin
+Bundle-SymbolicName: android-drawables-maven-plugin-m2e;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.github.kingamajick.admp.eclipse.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.m2e.core,
+ org.eclipse.m2e.maven.runtime,
+ org.eclipse.core.resources,
+ org.junit,
+ org.eclipse.core.filesystem,
+ org.slf4j.api;bundle-version="1.6.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
