@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: m2e configurator for the android-drawable-maven-plugin
-Bundle-SymbolicName: android-drawables-maven-plugin-m2e;singleton:=true
+Bundle-SymbolicName: android-drawables-maven-m2e-connector;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.github.kingamajick.admp.eclipse.Activator
 Require-Bundle: org.eclipse.ui,

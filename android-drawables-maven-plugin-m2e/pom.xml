@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.kingamajick.admp</groupId>
 	<version>0.0.1-SNAPSHOT</version>
-	<artifactId>android-drawable-maven-m2e-connector</artifactId>
+	<artifactId>android-drawables-maven-m2e-connector</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>Android Drawable Maven Plugin m2e Configurator</name>
 
