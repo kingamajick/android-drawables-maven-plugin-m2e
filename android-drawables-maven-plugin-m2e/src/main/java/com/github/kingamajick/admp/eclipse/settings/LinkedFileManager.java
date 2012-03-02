@@ -53,13 +53,9 @@ public class LinkedFileManager {
 			removeLinkedFiles(project, removedLinkedFiles, monitor);
 		}
 		finally {
-			// Always clear up the linked files in the settings, including is the removeLinkedFiles task fails
-			try {
-				this.settingsHandler.removeLinkedFiles(project, removedLinkedFiles.toArray(new String[removedLinkedFiles.size()]));
-			}
-			finally {
-				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			}
+			// Always clear up the linked files in the settings, including is the removeLinkedFiles task fails.
+			this.settingsHandler.removeLinkedFiles(project, removedLinkedFiles.toArray(new String[removedLinkedFiles.size()]));
+
 		}
 	}
 
@@ -80,12 +76,8 @@ public class LinkedFileManager {
 		finally {
 			// Always add the newly linked files to the settings, including if the createLinkedFiles was not successful. This should
 			// 'attempt' to keep the settings in sync with the reality.
-			try {
-				this.settingsHandler.addLinkedFile(project, newlyLinkedFiles.toArray(new String[newlyLinkedFiles.size()]));
-			}
-			finally {
-				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			}
+			this.settingsHandler.addLinkedFile(project, newlyLinkedFiles.toArray(new String[newlyLinkedFiles.size()]));
+
 		}
 	}
 

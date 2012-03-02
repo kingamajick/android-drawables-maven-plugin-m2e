@@ -16,6 +16,7 @@
 package com.github.kingamajick.admp.eclipse.build;
 
 import org.apache.maven.plugin.MojoExecution;
+import org.eclipse.m2e.core.project.configurator.MojoExecutionBuildParticipant;
 
 import com.github.kingamajick.admp.eclipse.Activator;
 
@@ -25,9 +26,17 @@ import com.github.kingamajick.admp.eclipse.Activator;
  */
 public class BuildParticipantFactory {
 
-	public UnpackBuildParticipant create(final MojoExecution execution) {
+	private static final String UNPACK_GOAL = "unpack";
+
+	public MojoExecutionBuildParticipant create(final MojoExecution execution) {
 		String goal = execution.getGoal();
-		UnpackBuildParticipant buildParticipant = new UnpackBuildParticipant(execution, true);
+		MojoExecutionBuildParticipant buildParticipant;
+		if (goal.equals(UNPACK_GOAL)) {
+			buildParticipant = new UnpackBuildParticipant(execution, true);
+		}
+		else {
+			buildParticipant = new MojoExecutionBuildParticipant(execution, true);
+		}
 		// Can I get Guice to do this implicitly.
 		Activator.getDefault().getInjector().injectMembers(buildParticipant);
 		return buildParticipant;

@@ -22,8 +22,11 @@ import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.embedder.IMaven;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.configurator.MojoExecutionBuildParticipant;
 import org.slf4j.Logger;
@@ -38,7 +41,7 @@ import com.google.inject.Inject;
  */
 public class UnpackBuildParticipant extends MojoExecutionBuildParticipant {
 
-	private Logger logger = LoggerFactory.getLogger(UnpackBuildParticipant.class);
+	private Logger logger = LoggerFactory.getLogger(MojoExecutionBuildParticipant.class);
 	@Inject LinkedFileManager linkedFileManager;
 
 	/**
@@ -56,6 +59,15 @@ public class UnpackBuildParticipant extends MojoExecutionBuildParticipant {
 	 */
 	public void clean(final IProgressMonitor monitor) throws CoreException {
 		this.logger.debug("clean");
+		IMavenProjectFacade mavenProjectFacade = getMavenProjectFacade();
+		IFolder unpackLocation = getUnpackLocation(mavenProjectFacade);
+		if (unpackLocation.exists()) {
+			unpackLocation.delete(true, monitor);
+		}
+		this.linkedFileManager.removeLinkedFiles(mavenProjectFacade.getProject(), monitor);
+
+		mavenProjectFacade.getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+
 		super.clean(monitor);
 	}
 
@@ -66,11 +78,20 @@ public class UnpackBuildParticipant extends MojoExecutionBuildParticipant {
 	 */
 	public Set<IProject> build(final int kind, final IProgressMonitor monitor) throws Exception {
 		this.logger.debug("build");
+		IMaven maven = MavenPlugin.getMaven();
 
 		Set<IProject> result = super.build(kind, monitor);
 
+		File updateDir = maven.getMojoParameterValue(getSession(), getMojoExecution(), "unpackLocation", File.class);
+		this.logger.debug("Refreshing update location {}", updateDir.getAbsolutePath());
+		getBuildContext().refresh(updateDir);
+
 		IMavenProjectFacade mavenProjectFacade = getMavenProjectFacade();
 		IFolder unpackLocation = getUnpackLocation(mavenProjectFacade);
+
+		// Update the project otherwise it will not be possible to access the resources via an IProject.
+		unpackLocation.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		this.logger.debug("Unpack location: {}", unpackLocation.getFullPath().toString());
 		this.linkedFileManager.removeLinkedFiles(mavenProjectFacade.getProject(), monitor);
 		this.linkedFileManager.generateLinkedFiles(mavenProjectFacade.getProject(), unpackLocation, monitor);
 
