@@ -15,5 +15,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.github.kingamajick.admp.eclipse;x-friends:="android-drawables-maven-m2e-test",
  com.github.kingamajick.admp.eclipse.build;x-friends:="android-drawables-maven-m2e-test",
- com.github.kingamajick.admp.eclipse.settings;x-friends:="android-drawables-maven-m2e-test",
  com.github.kingamajick.admp.guice;x-friends:="android-drawables-maven-m2e-test"

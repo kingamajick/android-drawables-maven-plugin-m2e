@@ -15,25 +15,16 @@
  */
 package com.github.kingamajick.admp.eclipse;
 
-import java.io.File;
-
 import org.apache.maven.plugin.MojoExecution;
-import org.apache.maven.project.MavenProject;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.lifecyclemapping.model.IPluginExecutionMetadata;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
-import org.eclipse.m2e.core.project.MavenProjectChangedEvent;
 import org.eclipse.m2e.core.project.configurator.AbstractBuildParticipant;
 import org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator;
 import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.github.kingamajick.admp.eclipse.build.BuildParticipantFactory;
-import com.github.kingamajick.admp.eclipse.settings.LinkedFileManager;
 import com.google.inject.Inject;
 
 /**
@@ -44,45 +35,7 @@ import com.google.inject.Inject;
  */
 public class ProjectConfigurator extends AbstractProjectConfigurator {
 
-	private static final String ANDROID_DRAWABLES_DIR = "/android-drawables";
-	private static final String UNPACK_LOCATION_PROP = "unpackLocation";
-
-	private Logger logger = LoggerFactory.getLogger(ProjectConfigurator.class);
-	@Inject LinkedFileManager linkedFileManager;
 	@Inject BuildParticipantFactory buildParticipantFactory;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator#configure(org.eclipse.m2e.core.project.configurator.
-	 * ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void configure(final ProjectConfigurationRequest request, final IProgressMonitor monitor) throws CoreException {
-		IProject project = request.getProject();
-		MavenProject mavenProject = request.getMavenProject();
-
-		this.linkedFileManager.removeLinkedFiles(project, monitor);
-
-		String outputDirectory = mavenProject.getBuild().getDirectory();
-		String unpackLocationPath = mavenProject.getProperties().getProperty(UNPACK_LOCATION_PROP, outputDirectory + ANDROID_DRAWABLES_DIR);
-		// Make the unpackLocation relative to the project root
-		File baseDir = mavenProject.getBasedir();
-		String relativeunpackLocation = unpackLocationPath.substring(baseDir.toString().length());
-		IFolder unpackLocation = project.getFolder(relativeunpackLocation);
-		this.linkedFileManager.generateLinkedFiles(project, unpackLocation, monitor);
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator#unconfigure(org.eclipse.m2e.core.project.configurator.
-	 * ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void unconfigure(final ProjectConfigurationRequest request, final IProgressMonitor monitor) throws CoreException {
-		this.linkedFileManager.removeLinkedFiles(request.getProject(), monitor);
-
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -97,24 +50,11 @@ public class ProjectConfigurator extends AbstractProjectConfigurator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator#mavenProjectChanged(org.eclipse.m2e.core.project.
-	 * MavenProjectChangedEvent, org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator#configure(org.eclipse.m2e.core.project.configurator.
+	 * ProjectConfigurationRequest, org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	public void mavenProjectChanged(final MavenProjectChangedEvent event, final IProgressMonitor monitor) throws CoreException {
-		super.mavenProjectChanged(event, monitor);
-	}
-
-	IFolder getUnpackLocation(final IMavenProjectFacade mavenProjectFacade) {
-		IProject project = mavenProjectFacade.getProject();
-		MavenProject mavenProject = mavenProjectFacade.getMavenProject();
-
-		String outputDirectory = mavenProject.getBuild().getDirectory();
-		String unpackLocationPath = mavenProject.getProperties().getProperty(UNPACK_LOCATION_PROP, outputDirectory + ANDROID_DRAWABLES_DIR);
-		// Make the unpackLocation relative to the project root
-		File baseDir = mavenProject.getBasedir();
-		String relativeunpackLocation = unpackLocationPath.substring(baseDir.toString().length());
-		IFolder unpackLocation = project.getFolder(relativeunpackLocation);
-		return unpackLocation;
+	public void configure(final ProjectConfigurationRequest request, final IProgressMonitor monitor) throws CoreException {
+		// Do nothing
 	}
 
 }
