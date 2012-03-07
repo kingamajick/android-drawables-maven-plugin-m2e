@@ -3,15 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.kingamajick.admp</groupId>
+	<groupId>com.github.kingamajick.admp.eclipse</groupId>
 	<version>0.0.1-SNAPSHOT</version>
-	<artifactId>android-drawables-maven-m2e-connector</artifactId>
-	<packaging>eclipse-plugin</packaging>
-	<name>Android Drawable Maven Plugin m2e Configurator</name>
+	<artifactId>com.github.kingamajick.admp.eclipse.parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Android Drawable Maven Plugin m2e Parent</name>
 
 	<properties>
 		<tycho-version>0.13.0</tycho-version>
 	</properties>
+
+	<modules>
+		<module>com.github.kingamajick.admp.eclipse.m2e</module>
+		<module>com.github.kingamajick.admp.eclipse.m2e.feature</module>
+		<module>com.github.kingamajick.admp.eclipse.m2e.update</module>
+	</modules>
 
 	<build>
 		<plugins>
@@ -21,7 +27,6 @@
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
@@ -54,10 +59,12 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
+					<resolver>p2</resolver>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
 	<repositories>
 		<repository>
 			<id>helios</id>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.github.kingamajick.admp.eclipse.m2e.feature_0.0.1.qualifier.jar" id="com.github.kingamajick.admp.eclipse.m2e.feature" version="0.0.1.qualifier">
+      <category name="com.github.kingamajick.admp.eclipse.update"/>
+   </feature>
+   <category-def name="com.github.kingamajick.admp.eclipse.update" label="Android Drawables Maven Plugin Connector for m2e"/>
+</site>
