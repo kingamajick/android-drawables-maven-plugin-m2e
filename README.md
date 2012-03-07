@@ -15,4 +15,4 @@ TODO!
 
 #### Snapshot ####
 
-```http://android-drawables-maven-plugin-m2e.googlecode.com/svn/trunk/snapshot/```
+http://android-drawables-maven-plugin-m2e.googlecode.com/svn/trunk/snapshot/
