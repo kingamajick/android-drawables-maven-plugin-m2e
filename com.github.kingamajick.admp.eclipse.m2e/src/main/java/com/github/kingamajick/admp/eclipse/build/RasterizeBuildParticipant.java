@@ -29,13 +29,13 @@ import org.eclipse.m2e.core.project.configurator.MojoExecutionBuildParticipant;
  * @author R King
  * 
  */
-public class RaterizeBuildParticipant extends MojoExecutionBuildParticipant {
+public class RasterizeBuildParticipant extends MojoExecutionBuildParticipant {
 
 	/**
 	 * @param execution
 	 * @param runOnIncremental
 	 */
-	public RaterizeBuildParticipant(final MojoExecution execution, final boolean runOnIncremental) {
+	public RasterizeBuildParticipant(final MojoExecution execution, final boolean runOnIncremental) {
 		super(execution, runOnIncremental);
 	}
 
@@ -50,6 +50,7 @@ public class RaterizeBuildParticipant extends MojoExecutionBuildParticipant {
 		Scanner ds = getBuildContext().newScanner(svgDirectory);
 		ds.scan();
 		String[] includedFiles = ds.getIncludedFiles();
+		// No source files changed, no need to perform a build
 		if (includedFiles == null || includedFiles.length == 0) {
 			return null;
 		}

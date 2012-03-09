@@ -27,11 +27,15 @@ import com.github.kingamajick.admp.eclipse.Activator;
 public class BuildParticipantFactory {
 
 	private final static String UNPACK_GOAL = "unpack";
+	private final static String RASTERIZE_GOAL = "rasterize";
 
 	public MojoExecutionBuildParticipant create(final MojoExecution execution) {
 		MojoExecutionBuildParticipant buildParticipant;
 		if (UNPACK_GOAL.equals(execution.getGoal())) {
 			buildParticipant = new UnpackBuildParticipant(execution, true);
+		}
+		else if (RASTERIZE_GOAL.equals(execution.getGoal())) {
+			buildParticipant = new RasterizeBuildParticipant(execution, true);
 		}
 		else {
 			buildParticipant = new MojoExecutionBuildParticipant(execution, true);
