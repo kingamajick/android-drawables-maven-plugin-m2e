@@ -9,6 +9,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>com.github.kingamajick.admp.eclipse.m2e.site</artifactId>
+	<artifactId>com.github.kingamajick.admp.eclipse.m2e.update</artifactId>
 	<packaging>eclipse-repository</packaging>
 </project>
